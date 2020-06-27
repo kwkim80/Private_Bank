@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">MyBank</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_history">History</string>
+    <string name="menu_faq">FAQ</string>
+    <string name="menu_setting">Setting</string>
+    <string name="menu_withdrawal">Withdrawal</string>
+    <string name="menu_deposit">Deposit</string>
+    <string name="app_title">MY Bank</string>
+
+    <string-array name="account_arrays">
+        <item>Allowance Account</item>
+        <item>Saving Account</item>
+        <item>Chequing Account</item>
+
+    </string-array>
+</resources>

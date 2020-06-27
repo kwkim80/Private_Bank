@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="ca.algonquin.kw2446.mybank.ui.home.HomeFragment"
+        android:label="@string/app_title"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_history"
+        android:name="ca.algonquin.kw2446.mybank.ui.history.HistoryFragment"
+        android:label="@string/menu_history"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/nav_faq"
+        android:name="ca.algonquin.kw2446.mybank.ui.faq.FAQFragment"
+        android:label="@string/menu_faq"
+        tools:layout="@layout/fragment_faq" />
+
+    <fragment
+        android:id="@+id/nav_setting"
+        android:name="ca.algonquin.kw2446.mybank.ui.setting.SettingFragment"
+        android:label="@string/menu_setting"
+        tools:layout="@layout/fragment_setting" />
+
+    <fragment
+        android:id="@+id/nav_deposit"
+        android:name="ca.algonquin.kw2446.mybank.ui.deposit.DepositFragment"
+        android:label="@string/menu_deposit"
+        tools:layout="@layout/fragment_deposit" />
+
+    <fragment
+        android:id="@+id/nav_withdrawal"
+        android:name="ca.algonquin.kw2446.mybank.ui.withdrawal.WithdrawalFragment"
+        android:label="@string/menu_withdrawal"
+        tools:layout="@layout/fragment_withdrawal" />
+</navigation>
