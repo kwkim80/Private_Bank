@@ -18,6 +18,7 @@ import ca.algonquin.kw2446.mybank.model.Money;
 
 public class MoneyAdapter extends RecyclerView.Adapter<MoneyAdapter.ViewHolder> {
 
+
     private ArrayList<Money> list;
     private Context context;
     View v;
@@ -57,8 +58,14 @@ public class MoneyAdapter extends RecyclerView.Adapter<MoneyAdapter.ViewHolder> 
         holder.itemView.setTag(money);
     }
 
+    public ArrayList<Money> getList(){
+        return list;
+    }
+
     @Override
     public int getItemCount() {
         return list.size();
     }
+
+
 }

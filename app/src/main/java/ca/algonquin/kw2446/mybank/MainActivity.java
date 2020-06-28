@@ -1,5 +1,6 @@
 package ca.algonquin.kw2446.mybank;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -23,12 +25,20 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import ca.algonquin.kw2446.mybank.util.AppUtil;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+
     NavController navController;
     ImageView ivDeposit;
+
+    public static final int PROFILE_REQUEST_CODE = 30;
+    public static final int DEPOSIT_REQUEST_CODE = 10;
+    public static final int TRANSFER_REQUEST_CODE = 20;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,5 +106,21 @@ public class MainActivity extends AppCompatActivity {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         navController.navigate(fragmeint_id);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==PROFILE_REQUEST_CODE ||resultCode==RESULT_OK ){
+            Toast.makeText(this, "Succedd to save your profile", Toast.LENGTH_SHORT).show();
+        }
+
+        if(requestCode==DEPOSIT_REQUEST_CODE ||resultCode==RESULT_OK ){
+            Toast.makeText(this, "Succedd to deposit your money", Toast.LENGTH_SHORT).show();
+        }
+        if(requestCode==TRANSFER_REQUEST_CODE ||resultCode==RESULT_OK ){
+            Toast.makeText(this, "Succedd to transfer your money", Toast.LENGTH_SHORT).show();
+        }
     }
 }

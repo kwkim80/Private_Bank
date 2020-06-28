@@ -14,10 +14,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import ca.algonquin.kw2446.mybank.AccountActivity;
+import ca.algonquin.kw2446.mybank.ProfileActivity;
 import ca.algonquin.kw2446.mybank.R;
 
 public class SettingFragment extends Fragment {
 
+    public static final int PROFILE_REQUEST_CODE = 30;
     private SettingViewModel settingViewModel;
 
     TextView tvAccount, tvProfile;
@@ -41,6 +43,18 @@ public class SettingFragment extends Fragment {
             Intent intent=new Intent(getActivity(), AccountActivity.class);
             startActivity(intent);
         });
+
+        tvProfile.setOnClickListener(v->{
+            Intent intent=new Intent(getActivity(), ProfileActivity.class);
+            startActivityForResult(intent, PROFILE_REQUEST_CODE);
+        });
         return root;
     }
+
+
+  
+  
+  
+  
+  
 }

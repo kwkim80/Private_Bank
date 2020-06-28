@@ -3,7 +3,10 @@ package ca.algonquin.kw2446.mybank;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,35 +20,36 @@ import ca.algonquin.kw2446.mybank.adapter.MoneyAdapter;
 import ca.algonquin.kw2446.mybank.model.Account;
 import ca.algonquin.kw2446.mybank.model.Money;
 import ca.algonquin.kw2446.mybank.persistence.BankRepository;
+import ca.algonquin.kw2446.mybank.ui.setting.SettingViewModel;
+import ca.algonquin.kw2446.mybank.viewmodel.HistoryActivityModel;
 
 public class HistoryActivity extends AppCompatActivity {
 
+    private HistoryActivityModel historyActivityModel;
     BankRepository bankRepository;
     RecyclerView rvList;
     MoneyAdapter adapter;
     ArrayList<Money> list;
+    int page;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
         ActionBar actionBar=getSupportActionBar();
-//        //actionBar.setIcon(R.drawable.logo);
-//        actionBar.setTitle(" Vocabulary");
-//        actionBar.setDisplayShowHomeEnabled(true);
-//        actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        historyActivityModel =
+                ViewModelProviders.of(this).get(HistoryActivityModel.class);
+
+
+        page=getIntent().getIntExtra("page",0);
         list=new ArrayList<>();
         //insertFakeNotes();
-
         initialRecyclerView();
         bankRepository=new BankRepository(this);
-
         this.retrieveMonenyList();
-        retrieveMonenyList();
-
-
 
     }
 
@@ -56,13 +60,13 @@ public class HistoryActivity extends AppCompatActivity {
         rvList.setLayoutManager(layoutManager);
         adapter=new MoneyAdapter(this, list);
         rvList.setAdapter(adapter);
-
     }
 
     public void retrieveMonenyList(){
-       LiveData<List<Money>> result=bankRepository.getMoneyList();
+
+
   //      LiveData<List<Account>> result2=bankRepository.getAccountList();
-       result.observe(this, monies -> {
+        historyActivityModel.getList(page).observe(this, monies -> {
             if(list.size() > 0){
                 list.clear();
             }

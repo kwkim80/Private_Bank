@@ -55,8 +55,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvWithdrawal"
-        android:text="Withdrawal History"
+        android:id="@+id/tvTransfer"
+        android:text="Transfer History"
         android:textSize="24dp"
         android:clickable="true"
         android:padding="20dp"/>

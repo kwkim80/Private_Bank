@@ -1,16 +1,16 @@
-package ca.algonquin.kw2446.mybank.ui.withdrawal;
+package ca.algonquin.kw2446.mybank.ui.transfer;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class WithdrawalViewModel extends ViewModel {
+public class TransferViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public WithdrawalViewModel() {
+    public TransferViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is Withdrawal fragment");
+        mText.setValue("Transfer Menu");
     }
 
     public LiveData<String> getText() {

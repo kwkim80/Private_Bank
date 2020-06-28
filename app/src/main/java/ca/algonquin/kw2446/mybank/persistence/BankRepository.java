@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +34,28 @@ public class BankRepository {
          new deleteMoneyAsyncTask(db.getMoneyDao()).execute(monies);
     }
 
-    public LiveData<List<Money>> getMoneyList(){
-        return db.getMoneyDao().getMoneyList();
+    public LiveData<List<Money>> getMoneyList(int type){
+
+        switch (type){
+            case 0:
+                return db.getMoneyDao().getMoneyList(false);
+            case 1:
+                return db.getMoneyDao().getMoneyList(true);
+            default:
+                return db.getMoneyDao().getMoneyList();
+
+        }
+
+
+
+    }
+
+    public LiveData<List<Money>> getMoneyList(boolean isOut){
+        return db.getMoneyDao().getMoneyList(isOut);
+    }
+
+    public LiveData<Double> getBalance(){
+        return db.getMoneyDao().getBalance();
     }
 
     public ArrayList<Money> getList(){

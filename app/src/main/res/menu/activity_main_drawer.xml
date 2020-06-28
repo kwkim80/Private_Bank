@@ -31,7 +31,7 @@
             <item
                 android:id="@+id/nav_withdrawal"
                 android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_withdrawal" />
+                android:title="@string/menu_transfer" />
         </menu>
     </item>
 

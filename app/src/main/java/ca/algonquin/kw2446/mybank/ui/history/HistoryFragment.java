@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import ca.algonquin.kw2446.mybank.AccountActivity;
 import ca.algonquin.kw2446.mybank.HistoryActivity;
 import ca.algonquin.kw2446.mybank.R;
 
@@ -21,7 +20,8 @@ public class HistoryFragment extends Fragment {
 
     private HistoryViewModel historyViewModel;
 
-    TextView tvAll, tvDeposit, tvWithdrawal;
+    View v;
+    TextView tvAll, tvDeposit, tvTransfer;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         historyViewModel =
@@ -37,10 +37,21 @@ public class HistoryFragment extends Fragment {
 
         tvAll=root.findViewById(R.id.tvAll);
         tvDeposit=root.findViewById(R.id.tvDeposit);
-        tvWithdrawal=root.findViewById(R.id.tvWithdrawal);
+        tvTransfer =root.findViewById(R.id.tvTransfer);
 
         tvAll.setOnClickListener(v->{
             Intent intent=new Intent(getActivity(), HistoryActivity.class);
+            intent.putExtra("page",2);
+            startActivity(intent);
+        });
+        tvDeposit.setOnClickListener(v->{
+            Intent intent=new Intent(getActivity(), HistoryActivity.class);
+            intent.putExtra("page",0);
+            startActivity(intent);
+        });
+        tvTransfer.setOnClickListener(v->{
+            Intent intent=new Intent(getActivity(), HistoryActivity.class);
+            intent.putExtra("page",1);
             startActivity(intent);
         });
         return root;

@@ -7,9 +7,11 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(foreignKeys = @ForeignKey(entity = Account.class,
+@Entity(indices = {@Index(value = {"accountId"})},
+        foreignKeys = @ForeignKey(entity = Account.class,
         parentColumns = "id",
         childColumns = "accountId",
         onDelete = ForeignKey.RESTRICT))

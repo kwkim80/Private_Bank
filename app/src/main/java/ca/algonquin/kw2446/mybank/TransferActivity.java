@@ -4,34 +4,29 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import ca.algonquin.kw2446.mybank.model.Account;
 import ca.algonquin.kw2446.mybank.model.Money;
 import ca.algonquin.kw2446.mybank.persistence.BankRepository;
 import ca.algonquin.kw2446.mybank.util.AppUtil;
 
-public class DepositActivity extends AppCompatActivity {
+public class TransferActivity extends AppCompatActivity {
 
-    EditText etAmount, etMemo;
-    Spinner spAccount;
+    EditText etAmount, etMemo, etOpponent;
     BankRepository bankRepository;
-    Button btnDeposit, btnCancel;
+    Button btnTransfer, btnCancel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_deposit);
+        setContentView(R.layout.activity_transfer);
 
-       ActionBar actionBar=getSupportActionBar();
+        ActionBar actionBar=getSupportActionBar();
 //        //actionBar.setIcon(R.drawable.logo);
 //        actionBar.setTitle(" Vocabulary");
 //        actionBar.setDisplayShowHomeEnabled(true);
@@ -40,29 +35,25 @@ public class DepositActivity extends AppCompatActivity {
 
         bankRepository=new BankRepository(this);
 
-        spAccount=findViewById(R.id.spAccount);
         etAmount=findViewById(R.id.etAmount);
         etMemo=findViewById(R.id.etMemo);
-        btnDeposit=findViewById(R.id.btnDeposit);
+        etOpponent=findViewById(R.id.etOppopnent);
+        btnTransfer =findViewById(R.id.btnTransfer);
         btnCancel=findViewById(R.id.btnCancel);
 
-        btnDeposit.setOnClickListener((v -> {
+        btnTransfer.setOnClickListener((v -> {
             double amount=Double.parseDouble(etAmount.getText().toString().trim());
             String memo=etMemo.getText().toString().trim();
             int accountId=1;
 
             if(amount<=0 ||memo.isEmpty()){
-                Toast.makeText(DepositActivity.this, "Please fill required fileds", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransferActivity.this, "Please fill required fileds", Toast.LENGTH_SHORT).show();
             }else{
-                Money deposit=new Money(accountId,"Deposit", amount,false,memo, AppUtil.getCurrentDateTime());
+                Money transfer=new Money(accountId,"Transfer", amount*-1,true,memo, AppUtil.getCurrentDateTime());
+                bankRepository.insertMoney(transfer);
 
-                bankRepository.insertMoney(deposit);
-
-//                Snackbar.make(v, "Succeed to create Deposit", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                Intent intent=new Intent();
-                setResult(RESULT_OK,intent);
-                this.finish();
+                Snackbar.make(v, "Succeed to transfer your money", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         }));
     }
@@ -71,7 +62,7 @@ public class DepositActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                DepositActivity.this.finish();
+                TransferActivity.this.finish();
                 break;
             default:
                 return super.onOptionsItemSelected(item);

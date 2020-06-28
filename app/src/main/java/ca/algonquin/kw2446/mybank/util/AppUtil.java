@@ -1,5 +1,9 @@
 package ca.algonquin.kw2446.mybank.util;
 
+import android.view.View;
+
+import com.google.android.material.snackbar.Snackbar;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,4 +35,11 @@ public class AppUtil {
         }
         return  result;
     }
+
+    public static void showSnackbar(View v,String str){
+        Snackbar.make(v, str, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+
 }

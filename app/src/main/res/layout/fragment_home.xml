@@ -33,7 +33,7 @@
             android:textSize="30dp" />
 
         <TextView
-            android:id="@+id/tvMoney"
+            android:id="@+id/tvBalance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -42,7 +42,7 @@
             android:gravity="end"
             android:paddingLeft="10dp"
             android:paddingRight="30dp"
-            android:text="$386,254"
+            android:text="$0.00"
             android:textSize="30dp" />
     </LinearLayout>
 
@@ -75,7 +75,7 @@
             app:srcCompat="@drawable/ic_deposit" />
 
         <ImageView
-            android:id="@+id/ivWidrawal"
+            android:id="@+id/ivTransfer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"

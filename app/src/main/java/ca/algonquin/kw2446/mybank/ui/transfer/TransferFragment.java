@@ -1,4 +1,4 @@
-package ca.algonquin.kw2446.mybank.ui.deposit;
+package ca.algonquin.kw2446.mybank.ui.transfer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,26 +16,26 @@ import androidx.lifecycle.ViewModelProviders;
 import ca.algonquin.kw2446.mybank.DepositActivity;
 import ca.algonquin.kw2446.mybank.HistoryActivity;
 import ca.algonquin.kw2446.mybank.R;
+import ca.algonquin.kw2446.mybank.TransferActivity;
 import ca.algonquin.kw2446.mybank.util.AppUtil;
 
-public class DepositFragment extends Fragment {
+public class TransferFragment extends Fragment {
 
-    private DepositViewModel depositViewModel;
+    private TransferViewModel transferViewModel;
     View v;
-    TextView tvDeposit, tvCheque, tvHistory;
+    TextView tvTransfer, tvMove, tvHistory;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        depositViewModel =
-                ViewModelProviders.of(this).get(DepositViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_deposit, container, false);
+        transferViewModel =
+                ViewModelProviders.of(this).get(TransferViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_transfer, container, false);
         final TextView textView = root.findViewById(R.id.tvTitle);
-        depositViewModel.getText().observe(this, new Observer<String>() {
+        transferViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
         });
-
         v=root;
         return v;
     }
@@ -44,20 +44,20 @@ public class DepositFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        tvDeposit=v.findViewById(R.id.tvDeposit);
-        tvCheque=v.findViewById(R.id.tvCheque);
+        tvTransfer=v.findViewById(R.id.tvTransfer);
+        tvMove=v.findViewById(R.id.tvMove);
         tvHistory=v.findViewById(R.id.tvHistory);
 
-        tvDeposit.setOnClickListener(v->{
-            Intent intent=new Intent(getActivity(), DepositActivity.class);
+        tvTransfer.setOnClickListener(v->{
+            Intent intent=new Intent(getActivity(), TransferActivity.class);
             startActivity(intent);
         });
-        tvCheque.setOnClickListener(v->{
+        tvMove.setOnClickListener(v->{
             AppUtil.showSnackbar(v,"It is preparing");
         });
         tvHistory.setOnClickListener(v->{
             Intent intent=new Intent(getActivity(), HistoryActivity.class);
-            intent.putExtra("page",0);
+            intent.putExtra("page",1);
             startActivity(intent);
         });
     }

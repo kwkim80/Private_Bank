@@ -27,9 +27,13 @@ public interface MoneyDao {
    @Query("Select * from Money")
    LiveData<List<Money>> getMoneyList();
 
+    @Query("SELECT * FROM Money WHERE isOut = :isOut")
+    LiveData<List<Money>> getMoneyList(boolean isOut);
 //   @Query("Select sum(amount) from Money accountId=?")
 //    LiveData<Double> getBalance();
 
+    @Query("SELECT sum(amount) FROM Money ")
+    LiveData<Double> getBalance();
 
     @Query("Select * from Money")
    List<Money> getList();
