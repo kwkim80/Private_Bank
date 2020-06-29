@@ -24,6 +24,7 @@ public class TransferFragment extends Fragment {
     private TransferViewModel transferViewModel;
     View v;
     TextView tvTransfer, tvMove, tvHistory;
+    private static final int TRANSFER_REQUEST_CODE = 20;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         transferViewModel =
@@ -50,7 +51,7 @@ public class TransferFragment extends Fragment {
 
         tvTransfer.setOnClickListener(v->{
             Intent intent=new Intent(getActivity(), TransferActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, TRANSFER_REQUEST_CODE);
         });
         tvMove.setOnClickListener(v->{
             AppUtil.showSnackbar(v,"It is preparing");

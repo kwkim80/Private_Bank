@@ -14,6 +14,7 @@ public class ApplicationClass extends Application {
            PreferenceManager.setValue(getApplicationContext(),"Pwd","0000");
            PreferenceManager.setValue(getApplicationContext(),"Name","Client");
            PreferenceManager.setValue(getApplicationContext(),"Email","");
+
         }
 
 

@@ -36,9 +36,10 @@ public class MainActivity extends AppCompatActivity {
     NavController navController;
     ImageView ivDeposit;
 
-    public static final int PROFILE_REQUEST_CODE = 30;
-    public static final int DEPOSIT_REQUEST_CODE = 10;
-    public static final int TRANSFER_REQUEST_CODE = 20;
+    private static final int PROFILE_REQUEST_CODE = 30;
+    private static final int ACCOUNT_REQUEST_CODE = 31;
+    private static final int DEPOSIT_REQUEST_CODE = 10;
+    private static final int TRANSFER_REQUEST_CODE = 20;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,15 +113,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==PROFILE_REQUEST_CODE ||resultCode==RESULT_OK ){
+        if(requestCode==PROFILE_REQUEST_CODE && resultCode==RESULT_OK ){
             Toast.makeText(this, "Succedd to save your profile", Toast.LENGTH_SHORT).show();
         }
 
-        if(requestCode==DEPOSIT_REQUEST_CODE ||resultCode==RESULT_OK ){
+        if(requestCode==DEPOSIT_REQUEST_CODE && resultCode==RESULT_OK ){
             Toast.makeText(this, "Succedd to deposit your money", Toast.LENGTH_SHORT).show();
         }
-        if(requestCode==TRANSFER_REQUEST_CODE ||resultCode==RESULT_OK ){
+        if(requestCode==TRANSFER_REQUEST_CODE && resultCode==RESULT_OK ){
             Toast.makeText(this, "Succedd to transfer your money", Toast.LENGTH_SHORT).show();
+        }
+
+        if(requestCode==ACCOUNT_REQUEST_CODE && resultCode==RESULT_OK ){
+            Toast.makeText(this, "Succedd to create your account number", Toast.LENGTH_SHORT).show();
         }
     }
 }

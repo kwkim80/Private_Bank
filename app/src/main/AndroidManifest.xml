@@ -3,22 +3,26 @@
     package="ca.algonquin.kw2446.mybank">
 
     <application
+        android:name=".util.ApplicationClass"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".util.ApplicationClass"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".AccountListActivity"></activity>
+        <activity android:name=".CompleteActivity" />
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".HistoryPagerActivity" />
         <activity android:name=".TransferActivity" />
         <activity android:name=".HistoryActivity" />
-        <activity android:name=".AccountActivity" />
+        <activity android:name=".AccountAddActivity" />
         <activity android:name=".DepositActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

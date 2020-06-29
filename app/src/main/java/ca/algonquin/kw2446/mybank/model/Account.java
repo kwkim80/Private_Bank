@@ -15,13 +15,17 @@ public class Account implements Parcelable {
     private String ownerName;
     private String title;
     private String createAt;
+    private boolean isAvailable;
 
-    public Account(String accountNumber, String ownerName, String title, String createAt) {
+
+    public Account(String accountNumber, String ownerName, String title, String createAt,boolean isAvailable) {
         this.accountNumber = accountNumber;
         this.ownerName = ownerName;
         this.title = title;
         this.createAt = createAt;
+        this.isAvailable = isAvailable;
     }
+
 
     protected Account(Parcel in) {
         id = in.readInt();
@@ -29,6 +33,7 @@ public class Account implements Parcelable {
         ownerName = in.readString();
         title = in.readString();
         createAt = in.readString();
+       isAvailable = in.readByte() != 0;
     }
 
     @Override
@@ -38,6 +43,7 @@ public class Account implements Parcelable {
         dest.writeString(ownerName);
         dest.writeString(title);
         dest.writeString(createAt);
+       dest.writeByte((byte) (isAvailable ? 1 : 0));
     }
 
     @Override
@@ -60,7 +66,6 @@ public class Account implements Parcelable {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -68,7 +73,6 @@ public class Account implements Parcelable {
     public String getAccountNumber() {
         return accountNumber;
     }
-
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
@@ -76,7 +80,6 @@ public class Account implements Parcelable {
     public String getOwnerName() {
         return ownerName;
     }
-
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
     }
@@ -84,7 +87,6 @@ public class Account implements Parcelable {
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -92,8 +94,22 @@ public class Account implements Parcelable {
     public String getCreateAt() {
         return createAt;
     }
-
     public void setCreateAt(String createAt) {
         this.createAt = createAt;
     }
+
+    public boolean isAvailable() { return isAvailable; }
+    public void setAvailable(boolean available) { isAvailable = available; }
+
+//    @Override
+//    public String toString() {
+//        return "Account{" +
+//                "id=" + id +
+//                ", accountNumber='" + accountNumber + '\'' +
+//                ", ownerName='" + ownerName + '\'' +
+//                ", title='" + title + '\'' +
+//                ", createAt='" + createAt + '\'' +
+//                ", isAvailable=" + isAvailable +
+//                '}';
+//    }
 }

@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase;
 import ca.algonquin.kw2446.mybank.model.Account;
 import ca.algonquin.kw2446.mybank.model.Money;
 
-@Database(entities = {Money.class, Account.class}, version = 3, exportSchema = true)
+@Database(entities = {Money.class, Account.class}, version = 1, exportSchema = true)
 public abstract class MoneyDB extends RoomDatabase {
 
     public static final String DB_NAME = "MoneyDB";

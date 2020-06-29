@@ -23,6 +23,9 @@ public class DepositFragment extends Fragment {
     private DepositViewModel depositViewModel;
     View v;
     TextView tvDeposit, tvCheque, tvHistory;
+
+    private static final int DEPOSIT_REQUEST_CODE = 10;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         depositViewModel =
@@ -50,7 +53,7 @@ public class DepositFragment extends Fragment {
 
         tvDeposit.setOnClickListener(v->{
             Intent intent=new Intent(getActivity(), DepositActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, DEPOSIT_REQUEST_CODE);
         });
         tvCheque.setOnClickListener(v->{
             AppUtil.showSnackbar(v,"It is preparing");

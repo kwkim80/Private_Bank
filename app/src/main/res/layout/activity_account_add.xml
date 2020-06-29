@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AccountActivity">
+    tools:context=".AccountAddActivity">
 
     <TextView
         android:id="@+id/textView1"
@@ -36,7 +36,8 @@
             android:hint="Account Name"
             android:textSize="24dp"
             android:layout_margin="10dp"
-            android:nextFocusDown="@+id/etNumber"/>
+            android:nextFocusDown="@+id/etNumber"
+            android:inputType="textPersonName"/>
     </com.google.android.material.textfield.TextInputLayout>
     <View
         android:id="@+id/divider3"
@@ -55,11 +56,16 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Phone Number"
+            android:hint="Account Number"
             android:inputType="phone"
             android:textSize="24dp" />
         android:nextFocusDown="@+id/etOwner"
     </com.google.android.material.textfield.TextInputLayout>
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -74,17 +80,32 @@
             android:hint="Owner Name (optional)"
             android:textSize="24dp"
             android:layout_margin="10dp"
-            android:nextFocusDown="@+id/btnCreate"/>
+            android:nextFocusDown="@+id/btnCreate"
+            android:inputType="textPersonName"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
+
+
+    <Switch
+        android:id="@+id/swcIsUse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Use:"
+        android:switchMinWidth="56dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="right"
+        android:padding="10dp"
+        android:checked="true"
+        android:textOff="OFF"
+        android:textOn="ON"/>
+
     <View
-        android:id="@+id/divider4"
+        android:id="@+id/divider5"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="?android:attr/listDivider" />
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -99,6 +120,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginRight="30dp"
             android:layout_weight="1"
+            android:onClick="addAccount"
             android:text="Create" />
 
         <Button

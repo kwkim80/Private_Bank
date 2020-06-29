@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -52,7 +53,7 @@ public class HomeFragment extends Fragment {
                 switch (v.getId()){
                     case R.id.ivDeposit:
                        // ((MainActivity)getActivity()).fragmentNavigate(R.id.nav_deposit);
-                        intent=new Intent(getActivity(), DepositActivity.class);
+                        intent=new Intent(getContext(), DepositActivity.class);
                         startActivityForResult(intent, DEPOSIT_REQUEST_CODE);
                         break;
                     case R.id.ivHistory:
@@ -82,11 +83,11 @@ public class HomeFragment extends Fragment {
         ivWithdrawal.setOnClickListener(listener);
         tvBalance=root.findViewById(R.id.tvBalance);
 
-        LiveData<Double> balance=bankRepository.getBalance();
+        LiveData<Double> balance= bankRepository.getBalance();
         balance.observe(getActivity(),v->{
             tvBalance.setText(String.format("$ %.2f",v));
         });
-
+      //  tvBalance.setText(String.format("$ %.2f",0));
         return root;
     }
 }

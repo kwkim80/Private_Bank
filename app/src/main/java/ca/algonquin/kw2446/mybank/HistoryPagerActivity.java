@@ -60,8 +60,20 @@ public class HistoryPagerActivity extends AppCompatActivity {
 
         //viewPager2
         new TabLayoutMediator(tabLayout, viewPager,
-                (tab, position) -> tab.setText("OBJECT " + (position + 1))
-        ).attach();
+                (tab, position) -> {
+            tab.setText("OBJECT " + (position + 1));
+            switch (position){
+                case 0:
+                    tab.setText("All");
+                    break;
+                case 1:
+                    tab.setText("Deposit");
+                    break;
+                case 2:
+                    tab.setText("Transfer");
+                    break;
+            }
+        }).attach();
 
 
     }

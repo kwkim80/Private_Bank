@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8355fc99dd85f58819120dd02808a84a",
+    "identityHash": "4de4ead23102c43efab3428aca6b6cf2",
     "entities": [
       {
         "tableName": "Money",
@@ -57,7 +57,16 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_Money_accountId",
+            "unique": false,
+            "columnNames": [
+              "accountId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Money_accountId` ON `${TABLE_NAME}` (`accountId`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "Account",
@@ -74,7 +83,7 @@
       },
       {
         "tableName": "Account",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `accountNumber` TEXT, `ownerName` TEXT, `title` TEXT, `createAt` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `accountNumber` TEXT, `ownerName` TEXT, `title` TEXT, `createAt` TEXT, `isAvailable` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -105,6 +114,12 @@
             "columnName": "createAt",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "isAvailable",
+            "columnName": "isAvailable",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -120,7 +135,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8355fc99dd85f58819120dd02808a84a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4de4ead23102c43efab3428aca6b6cf2')"
     ]
   }
 }

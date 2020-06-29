@@ -10,6 +10,7 @@ import androidx.room.Update;
 import java.util.List;
 
 import ca.algonquin.kw2446.mybank.model.Account;
+import ca.algonquin.kw2446.mybank.model.AccountBalance;
 import ca.algonquin.kw2446.mybank.model.Money;
 
 @Dao
@@ -25,4 +26,9 @@ public interface AccountDao {
 
     @Query("Select * from Account")
     LiveData<List<Account>> getAccountList();
+
+    @Query("Select a.id, accountNumber, a.title, sum(b.amount) as balance from Account a "
+            +"left join Money b on a.id=b.accountId "
+            +"group by a.id, accountNumber,a.title")
+    LiveData<List<AccountBalance>> getAccountsWithBalance();
 }

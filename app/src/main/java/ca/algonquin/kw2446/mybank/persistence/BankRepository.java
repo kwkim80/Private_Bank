@@ -4,12 +4,11 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ca.algonquin.kw2446.mybank.model.Account;
+import ca.algonquin.kw2446.mybank.model.AccountBalance;
 import ca.algonquin.kw2446.mybank.model.Money;
 
 public class BankRepository {
@@ -22,46 +21,21 @@ public class BankRepository {
         this.db = MoneyDB.getInstance(context);
     }
 
-    public void insertMoney(Money... monies){
-        new InsertMoneyAsyncTask(db.getMoneyDao()).execute(monies);
-    }
-
-    public void updateMoney(Money... monies){
-        new upateMoneyAsyncTask(db.getMoneyDao()).execute(monies);
-    }
-
-    public void deleteMoney(Money... monies){
-         new deleteMoneyAsyncTask(db.getMoneyDao()).execute(monies);
-    }
+    public void insertMoney(Money... monies){ new InsertMoneyAsyncTask(db.getMoneyDao()).execute(monies); }
+    public void updateMoney(Money... monies){ new upateMoneyAsyncTask(db.getMoneyDao()).execute(monies);}
+    public void deleteMoney(Money... monies){ new deleteMoneyAsyncTask(db.getMoneyDao()).execute(monies); }
 
     public LiveData<List<Money>> getMoneyList(int type){
-
         switch (type){
-            case 0:
-                return db.getMoneyDao().getMoneyList(false);
-            case 1:
-                return db.getMoneyDao().getMoneyList(true);
-            default:
-                return db.getMoneyDao().getMoneyList();
-
+            case 0: return db.getMoneyDao().getMoneyList(false);
+            case 1: return db.getMoneyDao().getMoneyList(true);
+            default: return db.getMoneyDao().getMoneyList();
         }
-
-
-
     }
 
-    public LiveData<List<Money>> getMoneyList(boolean isOut){
-        return db.getMoneyDao().getMoneyList(isOut);
-    }
+    public LiveData<Double> getBalance(){ return db.getMoneyDao().getBalance(); }
 
-    public LiveData<Double> getBalance(){
-        return db.getMoneyDao().getBalance();
-    }
 
-    public ArrayList<Money> getList(){
-        ArrayList<Money> result=(ArrayList<Money>) db.getMoneyDao().getList();
-    return result;
-    }
 
     public void insertAccount(Account... accounts){
         new AsyncTask<Void, Void, Void>() {
@@ -75,7 +49,6 @@ public class BankRepository {
 
     public void updateAccount(Account... account){
         //account.setModifiedAt(AppUtils.getCurrentDateTime());
-
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -85,9 +58,6 @@ public class BankRepository {
         }.execute();
     }
 
-    public void deleteAccount(int id){
-
-    }
     public void deleteAccount(Account... account){
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -98,9 +68,18 @@ public class BankRepository {
         }.execute();
     }
 
+
     public LiveData<List<Account>> getAccountList(){
         return  db.getAccountDao().getAccountList();
     }
+
+    public LiveData<List<AccountBalance>> getAccountsWithBalance(){
+        return db.getAccountDao().getAccountsWithBalance();
+    }
+
+
+
+    //money AsynTask
 
     public class InsertMoneyAsyncTask extends AsyncTask<Money, Void, Void>{
         private MoneyDao dao;
