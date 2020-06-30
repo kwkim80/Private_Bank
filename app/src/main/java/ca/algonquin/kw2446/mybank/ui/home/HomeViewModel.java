@@ -17,6 +17,7 @@ import ca.algonquin.kw2446.mybank.MainActivity;
 import ca.algonquin.kw2446.mybank.R;
 import ca.algonquin.kw2446.mybank.TransferActivity;
 import ca.algonquin.kw2446.mybank.persistence.BankRepository;
+import ca.algonquin.kw2446.mybank.util.PreferenceManager;
 
 public class HomeViewModel extends ViewModel  {
 
@@ -25,7 +26,7 @@ public class HomeViewModel extends ViewModel  {
     }
     private MutableLiveData<String> mText;
     private BankRepository bankRepository;
-
+    private LiveData<Double> balance;
     private ItemViewClicked act;
 //
 
@@ -34,13 +35,12 @@ public class HomeViewModel extends ViewModel  {
         //  MainActivity m=(MainActivity)context;
 
         mText = new MutableLiveData<>();
-        mText.setValue("Welcome to your bank");
+        mText.setValue(String.format("Welcome to %s ",PreferenceManager.getString(fragment.getContext(),"Name")));
         bankRepository=new BankRepository(fragment.getContext());
     }
 
-    public LiveData<String> getText() {
-        return mText;
-    }
+    public MutableLiveData<String> getText() { return mText; }
+    public void setText(MutableLiveData<String> mText) { this.mText = mText; }
 
     public LiveData<Double> getBalance(){
         return bankRepository.getBalance();

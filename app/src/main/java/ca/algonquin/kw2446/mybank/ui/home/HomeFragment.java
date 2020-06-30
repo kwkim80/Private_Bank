@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment implements HomeViewModel.ItemViewClic
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         FragmentHomeBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-        View root = binding.getRoot();
+        View root = binding.getRoot();// //View root = inflater.inflate(R.layout.fragment_home, container, false);
         //here data must be an instance of the class MarsDataProvider
         binding.setLifecycleOwner(this);
 
@@ -47,15 +47,12 @@ public class HomeFragment extends Fragment implements HomeViewModel.ItemViewClic
                 //new ViewModelProvider(this).get(HomeViewModel.class);
                 //ViewModelProviders.of(this).get(HomeViewModel.class);
         binding.setViewModel(homeViewModel);
-        //View root = inflater.inflate(R.layout.fragment_home, container, false);
+
         final TextView textView = root.findViewById(R.id.tvGreeting);
-
-
 
         homeViewModel.getBalance().observe(getActivity(),v->{
             binding.tvBalance.setText(String.format("$ %.2f",v));
         });
-      //  tvBalance.setText(String.format("$ %.2f",0));
         return root;
     }
 
@@ -65,12 +62,10 @@ public class HomeFragment extends Fragment implements HomeViewModel.ItemViewClic
         Intent intent;
         switch (v.getId()){
             case R.id.ivDeposit:
-
                 intent=new Intent(getContext(), DepositActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ivHistory:
-
                 Intent intent2=new Intent(getActivity(), HistoryPagerActivity.class);
                 startActivity(intent2);
                 break;

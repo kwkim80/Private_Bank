@@ -14,49 +14,56 @@
 
         <ImageView
             android:id="@+id/ivIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_history2" />
+            app:srcCompat="@drawable/ic_cashout" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:orientation="vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/tvTime"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:textSize="14dp"
-                    tools:text="TimeStamp"/>
-                <TextView
-                    android:id="@+id/tvOpponent"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:textSize="18dp"
-                    tools:text="Opponent"/>
-            </LinearLayout>
-
+                android:layout_weight="2"
+                android:textSize="14dp"
+                tools:text="TimeStamp" />
 
             <TextView
-                android:id="@+id/tvAmount"
+                android:id="@+id/tvOpponent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="right"
                 android:textSize="18dp"
-                android:text="$Amount" />
+                android:textStyle="bold"
+                tools:text="Opponent" />
+
+
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tvAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="$Amount"
+            android:textSize="18dp"
+            android:textStyle="bold"/>
+
     </LinearLayout>
+
+    <View
+        android:id="@+id/divider8"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:background="?android:attr/listDivider" />
 </LinearLayout>

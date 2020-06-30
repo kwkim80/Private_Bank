@@ -21,6 +21,7 @@
         tool:text="Welcome to your bank"
         android:gravity="center_horizontal"
         android:textSize="18dp"
+        android:text="@={viewModel.text}"
         android:padding="5dp" />
 
     <LinearLayout

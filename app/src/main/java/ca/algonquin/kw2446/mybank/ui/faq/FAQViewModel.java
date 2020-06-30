@@ -10,7 +10,7 @@ public class FAQViewModel extends ViewModel {
 
     public FAQViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is faq fragment");
+        mText.setValue("FAQ");
     }
 
     public LiveData<String> getText() {
