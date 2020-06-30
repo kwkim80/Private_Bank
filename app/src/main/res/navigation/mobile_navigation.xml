@@ -36,7 +36,7 @@
         tools:layout="@layout/fragment_deposit" />
 
     <fragment
-        android:id="@+id/nav_withdrawal"
+        android:id="@+id/nav_transfer"
         android:name="ca.algonquin.kw2446.mybank.ui.transfer.TransferFragment"
         android:label="@string/menu_transfer"
         tools:layout="@layout/fragment_transfer" />

@@ -118,4 +118,17 @@ public class Money implements Parcelable {
     public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
+
+    @Override
+    public String toString() {
+        return "Money{" +
+                "id=" + id +
+                ", accountId=" + accountId +
+                ", opponent='" + opponent + '\'' +
+                ", amount=" + amount +
+                ", isOut=" + isOut +
+                ", timestamp='" + timestamp + '\'' +
+                ", memo='" + memo + '\'' +
+                '}';
+    }
 }

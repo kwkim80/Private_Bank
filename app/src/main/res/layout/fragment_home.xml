@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="ca.algonquin.kw2446.mybank.ui.home.HomeViewModel" />
+    </data>
+
+<LinearLayout
     android:layout_width="match_parent"
-    xmlns:tool="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_height="match_parent">
 
@@ -72,6 +79,7 @@
             android:layout_weight="1"
             android:background="@layout/image_border"
             android:padding="30dp"
+            android:onClick="@{(v)->viewModel.imageViewClick(v)}"
             app:srcCompat="@drawable/ic_deposit" />
 
         <ImageView
@@ -88,6 +96,7 @@
             android:paddingTop="30dp"
             android:paddingBottom="40dp"
             android:rotation="180"
+            android:onClick="@{(v)->viewModel.imageViewClick(v)}"
             android:background="@layout/image_border"
             app:srcCompat="@drawable/ic_cashout" />
     </LinearLayout>
@@ -107,7 +116,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginBottom="20dp"
             android:layout_weight="1"
-
+            android:onClick="@{(v)->viewModel.imageViewClick(v)}"
             android:background="@layout/image_border"
             android:padding="40dp"
             app:srcCompat="@drawable/ic_history" />
@@ -121,7 +130,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:layout_weight="1"
-
+            android:onClick="@{(v)->viewModel.imageViewClick(v)}"
             android:background="@layout/image_border"
             android:padding="40dp"
             app:srcCompat="@drawable/ic_setting" />
@@ -134,3 +143,4 @@
         android:layout_weight="1" />
 
 </LinearLayout>
+</layout>

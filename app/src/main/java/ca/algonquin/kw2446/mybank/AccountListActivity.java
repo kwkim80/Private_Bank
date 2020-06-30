@@ -3,6 +3,7 @@ package ca.algonquin.kw2446.mybank;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +35,10 @@ public class AccountListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_list);
+
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         list=new ArrayList<>();
         model=ViewModelProviders.of(this).get(AccountListActivityModel.class);
         lvAccounts=findViewById(R.id.lvAccounts);
@@ -64,12 +69,15 @@ public class AccountListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.add:
-                if(list.size()<10){
+                if(list.size()<5){
                     Intent intent=new Intent(AccountListActivity.this,AccountAddActivity.class);
                     startActivityForResult(intent,ACCOUNTADD_REQUEST_CODE);
                 }else{
                     Toast.makeText(this, "You have maximum Account.", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case android.R.id.home:
+                this.finish();
                 break;
         }
         return super.onOptionsItemSelected(item);

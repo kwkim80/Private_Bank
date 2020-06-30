@@ -1,6 +1,5 @@
 package ca.algonquin.kw2446.mybank;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -10,9 +9,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -25,9 +25,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import ca.algonquin.kw2446.mybank.util.AppUtil;
+import ca.algonquin.kw2446.mybank.util.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int ACCOUNT_REQUEST_CODE = 31;
     private static final int DEPOSIT_REQUEST_CODE = 10;
     private static final int TRANSFER_REQUEST_CODE = 20;
+    NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,22 +57,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
+        setProfileInHeader();
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
+
+
+
+       navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        //navController = NavHostFragment.findNavController(getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment));
+        //navController = Navigation.findNavController(View)
+
+                mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_history, R.id.nav_faq,
-                R.id.nav_setting, R.id.nav_deposit, R.id.nav_withdrawal)
+                R.id.nav_setting, R.id.nav_deposit, R.id.nav_transfer)
                 .setDrawerLayout(drawer)
                 .build();
-         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+       // mAppBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-      //  navController.navigate(R.id.nav_deposit);
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        DepositFragment depositFragment= (DepositFragment) fragmentManager.findFragmentById(R.id.nav_deposit);
-//        fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, depositFragment).commit();
     }
 
     @Override
@@ -103,29 +109,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void fragmentNavigate(int fragmeint_id) {
-        // Create a new fragment and specify the fragment to show based on nav item clicked
-        navController.navigate(fragmeint_id);
+//    public void fragmentNavigate(int fragmeint_id) {
+//        // Create a new fragment and specify the fragment to show based on nav item clicked
+//        navController.navigate(fragmeint_id);
+//
+//    }
 
+    public void setProfileInHeader(){
+        View header=navigationView.getHeaderView(0);
+        TextView tvClientName=header.findViewById(R.id.tvClientName);
+        TextView tvClientEmail=header.findViewById(R.id.tvClientEmail);
+
+        tvClientName.setText(PreferenceManager.getString(this,"Name"));
+        tvClientEmail.setText(PreferenceManager.getString(this,"Email"));
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==PROFILE_REQUEST_CODE && resultCode==RESULT_OK ){
-            Toast.makeText(this, "Succedd to save your profile", Toast.LENGTH_SHORT).show();
-        }
-
-        if(requestCode==DEPOSIT_REQUEST_CODE && resultCode==RESULT_OK ){
-            Toast.makeText(this, "Succedd to deposit your money", Toast.LENGTH_SHORT).show();
-        }
-        if(requestCode==TRANSFER_REQUEST_CODE && resultCode==RESULT_OK ){
-            Toast.makeText(this, "Succedd to transfer your money", Toast.LENGTH_SHORT).show();
-        }
-
-        if(requestCode==ACCOUNT_REQUEST_CODE && resultCode==RESULT_OK ){
-            Toast.makeText(this, "Succedd to create your account number", Toast.LENGTH_SHORT).show();
-        }
-    }
 }

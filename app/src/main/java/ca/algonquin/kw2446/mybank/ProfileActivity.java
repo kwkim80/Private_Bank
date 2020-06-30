@@ -3,6 +3,10 @@ package ca.algonquin.kw2446.mybank;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,76 +17,45 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ca.algonquin.kw2446.mybank.databinding.ActivityPofileBinding;
 import ca.algonquin.kw2446.mybank.persistence.BankRepository;
 import ca.algonquin.kw2446.mybank.util.AppUtil;
 import ca.algonquin.kw2446.mybank.util.PreferenceManager;
+import ca.algonquin.kw2446.mybank.viewmodel.ProfileVM;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView tvName, tvEmail;
-    EditText etName, etPwd, etNewPwd, etEmail;
-    String name, email, pwd,newPwd;
-    Button btnUpdate, btnCancel;
 
+    String name, email, pwd,newPwd;
+    ProfileVM vm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pofile);
+       // setContentView(R.layout.activity_pofile);
+        ActivityPofileBinding binding =DataBindingUtil.setContentView(this,R.layout.activity_pofile);
 
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        vm= new ViewModelProvider(this).get(ProfileVM.class); //ViewModelProviders.of(this).get(ProfileVM.class);
+        binding.setViewModel(vm);
+        binding.setLifecycleOwner(this);
 
+        binding.tvName.setText(vm.getName());
+        binding.tvEmail.setText(vm.getEmail());
 
-        tvName=findViewById(R.id.tvName);
-        tvEmail=findViewById(R.id.tvEmail);
-
-        etName=findViewById(R.id.etName);
-        etPwd=findViewById(R.id.etPwd);
-        etNewPwd=findViewById(R.id.etNewPwd);
-        etEmail=findViewById(R.id.etEmail);
-
-        name= PreferenceManager.getString(this,"Name");
-        pwd=PreferenceManager.getString(getApplicationContext(), "Pwd");
-        email=PreferenceManager.getString(getApplicationContext(), "Email");
-
-        tvName.setText(name);
-        tvEmail.setText(email);
-
-        btnUpdate=findViewById(R.id.btnUpdate);
-        btnCancel=findViewById(R.id.btnCancel);
-
-        etName.setText(name);
-        etEmail.setText(email);
-        if(pwd.equalsIgnoreCase("0000")){
-            etPwd.setHint("                         (Initial Password is 0000)");
+        if(vm.getOriPwd().equalsIgnoreCase("0000")){
+            binding.etPwd.setHint("                         (Initial Password is 0000)");
         }
 
-
-
-        btnUpdate.setOnClickListener(v->{
-            name=etName.getText().toString().trim();
-
-            newPwd=etNewPwd.getText().toString().trim();
-            email=etEmail.getText().toString().trim();
-            String chkPwd=etPwd.getText().toString().trim();
-
-            if(name.isEmpty()|| email.isEmpty() ||chkPwd.isEmpty() ||email.isEmpty()){
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-            }else{
-                if(pwd.equalsIgnoreCase(chkPwd)){
-                     PreferenceManager.setValue(getApplicationContext(),"Name",name);
-                    PreferenceManager.setValue(getApplicationContext(),"Pwd",newPwd);
-                    PreferenceManager.setValue(getApplicationContext(),"Email",email);
-                    Intent intent=new Intent();
-                    setResult(RESULT_OK,intent);
-                    ProfileActivity.this.finish();
-                }
-            }
-
+        binding.btnUpdate.setOnClickListener((v)->{
+            if(vm.setProfile()){
+                Intent intent=new Intent();
+                setResult(RESULT_OK,intent);
+                ProfileActivity.this.finish();
+            }else Toast.makeText(this, "The password is not matched!", Toast.LENGTH_SHORT).show();
         });
-
-        btnCancel.setOnClickListener(v->this.finish());
+        binding.btnCancel.setOnClickListener(v->this.finish());
     }
 
     @Override
@@ -91,8 +64,6 @@ public class ProfileActivity extends AppCompatActivity {
             case android.R.id.home:
                 ProfileActivity.this.finish();
                 break;
-            default:
-                return super.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item);
     }

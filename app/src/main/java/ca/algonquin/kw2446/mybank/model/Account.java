@@ -101,15 +101,15 @@ public class Account implements Parcelable {
     public boolean isAvailable() { return isAvailable; }
     public void setAvailable(boolean available) { isAvailable = available; }
 
-//    @Override
-//    public String toString() {
-//        return "Account{" +
-//                "id=" + id +
-//                ", accountNumber='" + accountNumber + '\'' +
-//                ", ownerName='" + ownerName + '\'' +
-//                ", title='" + title + '\'' +
-//                ", createAt='" + createAt + '\'' +
-//                ", isAvailable=" + isAvailable +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", ownerName='" + ownerName + '\'' +
+                ", title='" + title + '\'' +
+                ", createAt='" + createAt + '\'' +
+                ", isAvailable=" + isAvailable +
+                '}';
+    }
 }
