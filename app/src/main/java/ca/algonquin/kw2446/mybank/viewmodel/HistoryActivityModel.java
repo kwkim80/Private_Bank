@@ -22,8 +22,8 @@ public class HistoryActivityModel extends AndroidViewModel {
         bankRepository=new BankRepository(application);
     }
 
-    public LiveData<List<Money>> getList(int type){
-        return bankRepository.getMoneyList(type);
+    public LiveData<List<Money>> getList(int id, int type){
+        return bankRepository.getMoneyList(id, type);
     }
 }
 

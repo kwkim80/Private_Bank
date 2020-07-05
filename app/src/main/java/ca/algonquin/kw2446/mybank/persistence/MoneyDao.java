@@ -24,16 +24,20 @@ public interface MoneyDao {
    @Delete
     int deleteMoney(Money... monies);
 
-   @Query("Select * from Money")
+   @Query("Select * from Money order by id  desc")
    LiveData<List<Money>> getMoneyList();
-
-    @Query("SELECT * FROM Money WHERE isOut = :isOut")
+    @Query("Select * from Money where accountId=:id order by id desc")
+    LiveData<List<Money>> getMoneyList(int id);
+    @Query("SELECT * FROM Money WHERE isOut = :isOut order by id desc")
     LiveData<List<Money>> getMoneyList(boolean isOut);
+
+    @Query("SELECT * FROM Money WHERE isOut = :isOut and accountId=:id order by id desc")
+    LiveData<List<Money>> getMoneyList( int id, boolean isOut);
 
    @Query("Select ifnull(sum(amount),0) from Money where accountId = :id")
     LiveData<Double> getBalance(int id);
 
-    @Query("SELECT ifnull(sum(amount),0)  FROM Money ")
+    @Query("SELECT ifnull(sum(amount),0)  FROM Money")
     LiveData<Double> getBalance();
 
 

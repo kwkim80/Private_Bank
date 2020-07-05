@@ -11,20 +11,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:layout_margin="10dp"
     tools:context=".ProfileActivity">
 
+    <TextView
+        android:id="@+id/tvDeposit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
+        android:text="Profile"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+    <View
+        android:id="@+id/divider12"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider" />
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/ivPhoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentLeft="true"
-            android:paddingTop="8dp"
+            android:layout_marginTop="8dp"
+            android:onClick="imgEdit"
             android:src="@mipmap/ic_launcher_round" />
 
         <TextView
@@ -46,6 +59,15 @@
             android:text="@={viewModel.email}"
             android:textSize="18sp"
             tools:text="Email"/>
+
+        <ImageView
+            android:id="@+id/ivEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivPhoto"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="-20dp"
+            app:srcCompat="@drawable/ic_edit" />
 
 
     </RelativeLayout>

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,7 +25,10 @@ import com.google.android.material.snackbar.Snackbar;
 import java.io.Serializable;
 import java.util.Random;
 
+import ca.algonquin.kw2446.mybank.databinding.ActivityDepositBinding;
+import ca.algonquin.kw2446.mybank.databinding.ActivityPofileBinding;
 import ca.algonquin.kw2446.mybank.model.Account;
+import ca.algonquin.kw2446.mybank.model.AccountBalance;
 import ca.algonquin.kw2446.mybank.model.Money;
 import ca.algonquin.kw2446.mybank.persistence.BankRepository;
 import ca.algonquin.kw2446.mybank.util.AppUtil;
@@ -32,49 +36,39 @@ import ca.algonquin.kw2446.mybank.util.PreferenceManager;
 
 public class DepositActivity extends AppCompatActivity {
 
-    EditText etAmount, etMemo;
-    Spinner spAccount;
+
     BankRepository bankRepository;
-    Button btnDeposit, btnCancel;
-    private static final int DEPOSIT_REQUEST_CODE = 10;
+    private AccountBalance accountBalance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_deposit);
-
+        //setContentView(R.layout.activity_deposit);
+        ActivityDepositBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_deposit);
 
 
        ActionBar actionBar=getSupportActionBar();
-//        //actionBar.setIcon(R.drawable.logo);
-//        actionBar.setTitle(" Vocabulary");
-//        actionBar.setDisplayShowHomeEnabled(true);
-//        actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-
+        accountBalance= (AccountBalance) getIntent().getSerializableExtra("account");
         bankRepository=new BankRepository(this);
 
-        spAccount=findViewById(R.id.spAccount);
-        etAmount=findViewById(R.id.etAmount);
-        etMemo=findViewById(R.id.etMemo);
-        btnDeposit=findViewById(R.id.btnDeposit);
-        btnCancel=findViewById(R.id.btnCancel);
 
-        btnDeposit.setOnClickListener((v -> {
-            double amount=Double.parseDouble(etAmount.getText().toString().trim());
-            String memo=etMemo.getText().toString().trim();
-            int accountId=1;
+        binding.tvAccount.setText(accountBalance.title);
 
+        binding.btnDeposit.setOnClickListener((v -> {
+            double amount=Double.parseDouble(binding.etAmount.getText().toString().trim());
+            String memo=binding.etMemo.getText().toString().trim();
+            String opponent=binding.etOppopnent.getText().toString().trim();
             if(amount<=0 ||memo.isEmpty()){
                 Toast.makeText(DepositActivity.this, "Please fill required fileds", Toast.LENGTH_SHORT).show();
             }else{
-                Money deposit=new Money(accountId,"Deposit", amount,false,memo, AppUtil.getCurrentDateTime());
+                Money deposit=new Money(accountBalance.id,opponent.isEmpty()?"Deposit":opponent, amount,false,memo, AppUtil.getCurrentDateTime());
 
                 checkPwd(deposit);
 
             }
         }));
 
-        btnCancel.setOnClickListener(v->{
+        binding.btnCancel.setOnClickListener(v->{
             Intent intent=new Intent();
             setResult(RESULT_CANCELED,intent);
             this.finish();
@@ -113,6 +107,7 @@ public class DepositActivity extends AppCompatActivity {
                                 if(userInput.getText().toString().trim().equalsIgnoreCase(PreferenceManager.getString(getApplicationContext(),"Pwd"))){
                                     bankRepository.insertMoney(deposit);
                                     Intent intent=new Intent(DepositActivity.this, CompleteActivity.class);
+                                    intent.putExtra("account",accountBalance);
                                     intent.putExtra("money",deposit);
                                     startActivity(intent);
                                 }else{

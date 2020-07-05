@@ -24,9 +24,7 @@ public class HistoryPagerActivityModel extends AndroidViewModel {
         bankRepository = new BankRepository(application);
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(new HistoryPagerFragment(2));
-        fragmentList.add(new HistoryPagerFragment(0));
-       fragmentList.add(new HistoryPagerFragment(1));
+
 
     }
 
@@ -35,7 +33,10 @@ public class HistoryPagerActivityModel extends AndroidViewModel {
         return bankRepository.getMoneyList(type);
     }
 
-    public ArrayList<Fragment> getFrags(){
+    public ArrayList<Fragment> getFrags(int id){
+        fragmentList.add(new HistoryPagerFragment( id,2));
+        fragmentList.add(new HistoryPagerFragment(id,0));
+        fragmentList.add(new HistoryPagerFragment(id,1));
         return fragmentList;
     }
 }

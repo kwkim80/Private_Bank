@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:shape="rectangle">
-    <solid android:color="#D3F5F4F4"/>
+    <solid android:color="#FFFFFF"/>
     <corners android:radius="20dp" />
     <stroke
-        android:width="5dp"
-        android:color="#8A8989"/>
+        android:width="3dp"
+        android:color="#474747"/>
 </shape>

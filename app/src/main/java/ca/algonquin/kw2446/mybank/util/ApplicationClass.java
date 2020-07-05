@@ -16,8 +16,5 @@ public class ApplicationClass extends Application {
            PreferenceManager.setValue(getApplicationContext(),"Email","");
 
         }
-
-
-
     }
 }

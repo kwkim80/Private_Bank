@@ -11,6 +11,7 @@ import java.util.List;
 
 import ca.algonquin.kw2446.mybank.model.Account;
 import ca.algonquin.kw2446.mybank.model.AccountBalance;
+import ca.algonquin.kw2446.mybank.model.AccountSimple;
 import ca.algonquin.kw2446.mybank.model.Money;
 
 @Dao
@@ -23,6 +24,15 @@ public interface AccountDao {
 
     @Delete
     int deleteAccount(Account... accounts);
+
+    @Query("Select title from Account")
+    LiveData<List<String>> getAccountTitleList();
+
+    @Query("Select * from Account where id=:id")
+    LiveData<Account> getAccount(int id);
+
+    @Query("Select id, title from Account")
+    LiveData<List<AccountSimple>> getAccountSimpleList();
 
     @Query("Select * from Account")
     LiveData<List<Account>> getAccountList();
