@@ -11,11 +11,16 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.List;
+
 import ca.algonquin.kw2446.mybank.DepositActivity;
 import ca.algonquin.kw2446.mybank.HistoryPagerActivity;
 import ca.algonquin.kw2446.mybank.MainActivity;
 import ca.algonquin.kw2446.mybank.R;
 import ca.algonquin.kw2446.mybank.TransferActivity;
+import ca.algonquin.kw2446.mybank.model.Account;
+import ca.algonquin.kw2446.mybank.model.AccountBalance;
+import ca.algonquin.kw2446.mybank.model.AccountSimple;
 import ca.algonquin.kw2446.mybank.persistence.BankRepository;
 import ca.algonquin.kw2446.mybank.util.PreferenceManager;
 
@@ -26,8 +31,9 @@ public class HomeViewModel extends ViewModel  {
     }
     private MutableLiveData<String> mText;
     private BankRepository bankRepository;
-    private LiveData<Double> balance;
+
     private ItemViewClicked act;
+
 //
 
     public HomeViewModel(HomeFragment fragment) {
@@ -45,6 +51,12 @@ public class HomeViewModel extends ViewModel  {
     public LiveData<Double> getBalance(){
         return bankRepository.getBalance();
     }
+
+    public LiveData<Account> getAccount(int id) {return bankRepository.getAccount(id);}
+
+    public LiveData<List<String>> getTitles() {return bankRepository.getAccountTitleList();}
+    public LiveData<List<AccountSimple>> getAccountSimpleList() {return bankRepository.getAccountSimpleList();}
+    public LiveData<List<AccountBalance>> getAccountBalances() {return bankRepository.getAccountsWithBalance();}
 
     public void imageViewClick(View v){
             act.onItemViewClicked(v);

@@ -18,6 +18,7 @@ import java.util.List;
 
 import ca.algonquin.kw2446.mybank.adapter.MoneyAdapter;
 import ca.algonquin.kw2446.mybank.model.Account;
+import ca.algonquin.kw2446.mybank.model.AccountBalance;
 import ca.algonquin.kw2446.mybank.model.Money;
 import ca.algonquin.kw2446.mybank.persistence.BankRepository;
 import ca.algonquin.kw2446.mybank.ui.setting.SettingViewModel;
@@ -30,7 +31,8 @@ public class HistoryActivity extends AppCompatActivity {
     RecyclerView rvList;
     MoneyAdapter adapter;
     ArrayList<Money> list;
-    int page;
+    private int page;
+    private AccountBalance accountBalance;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class HistoryActivity extends AppCompatActivity {
         historyActivityModel =
                 ViewModelProviders.of(this).get(HistoryActivityModel.class);
 
-
+        accountBalance= (AccountBalance) getIntent().getSerializableExtra("account");
         page=getIntent().getIntExtra("page",0);
         list=new ArrayList<>();
         //insertFakeNotes();
@@ -66,7 +68,7 @@ public class HistoryActivity extends AppCompatActivity {
 
 
   //      LiveData<List<Account>> result2=bankRepository.getAccountList();
-        historyActivityModel.getList(page).observe(this, monies -> {
+        historyActivityModel.getList(accountBalance.id, page).observe(this, monies -> {
             if(list.size() > 0){
                 list.clear();
             }

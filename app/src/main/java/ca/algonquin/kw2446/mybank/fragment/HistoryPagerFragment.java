@@ -32,11 +32,13 @@ public class HistoryPagerFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.Adapter moneyAdapter;
     RecyclerView.LayoutManager layoutManager;
-
-    int type;
-    public HistoryPagerFragment(int type) {
+    private int accountID;
+    private int type;
+    public HistoryPagerFragment(int id, int type) {
         // Required empty public constructor
        this.type=type;
+       this.accountID=id;
+
     }
 
 
@@ -73,7 +75,7 @@ public class HistoryPagerFragment extends Fragment {
 
     public void retrieveMonenyList( ){
 
-        viewModel.getList(type).observe(getActivity(), monies -> {
+        viewModel.getList(accountID,type).observe(getActivity(), monies -> {
             if(list.size() > 0){
                 list.clear();
             }

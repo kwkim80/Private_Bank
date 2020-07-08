@@ -9,6 +9,7 @@ import java.util.List;
 
 import ca.algonquin.kw2446.mybank.model.Account;
 import ca.algonquin.kw2446.mybank.model.AccountBalance;
+import ca.algonquin.kw2446.mybank.model.AccountSimple;
 import ca.algonquin.kw2446.mybank.model.Money;
 
 public class BankRepository {
@@ -30,6 +31,14 @@ public class BankRepository {
             case 0: return db.getMoneyDao().getMoneyList(false);
             case 1: return db.getMoneyDao().getMoneyList(true);
             default: return db.getMoneyDao().getMoneyList();
+        }
+    }
+
+    public LiveData<List<Money>> getMoneyList(int accountId, int type){
+        switch (type){
+            case 0: return db.getMoneyDao().getMoneyList(accountId,false);
+            case 1: return db.getMoneyDao().getMoneyList(accountId,true);
+            default: return db.getMoneyDao().getMoneyList(accountId);
         }
     }
 
@@ -69,14 +78,20 @@ public class BankRepository {
     }
 
 
+    public LiveData<List<String>> getAccountTitleList(){
+        return  db.getAccountDao().getAccountTitleList();
+    }
     public LiveData<List<Account>> getAccountList(){
         return  db.getAccountDao().getAccountList();
     }
-
+    public LiveData<List<AccountSimple>> getAccountSimpleList(){ return  db.getAccountDao().getAccountSimpleList(); }
     public LiveData<List<AccountBalance>> getAccountsWithBalance(){
         return db.getAccountDao().getAccountsWithBalance();
     }
 
+    public LiveData<Account> getAccount(int id){
+        return  db.getAccountDao().getAccount(id);
+    }
 
 
     //money AsynTask

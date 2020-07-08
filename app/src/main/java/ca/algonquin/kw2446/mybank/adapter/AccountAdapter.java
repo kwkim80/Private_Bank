@@ -37,22 +37,43 @@ public class AccountAdapter extends ArrayAdapter<AccountBalance> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
         ViewHolder holder;
-
         AccountBalance accountBalance=list.get(position);
-        if(convertView==null || convertView.getTag()==null){
-            if(convertView==null)
-                convertView= LayoutInflater.from(parent.getContext()).inflate(R.layout.account_items,parent,false);
-
-           holder=new ViewHolder();
-           holder.tvTitle=convertView.findViewById(R.id.tvTitle);
-           holder.tvNumber=convertView.findViewById(R.id.tvNumber);
-           holder.tvBalance=convertView.findViewById(R.id.tvBalance);
-        }else holder= (ViewHolder) convertView.getTag();
+        if(convertView==null) {
+            convertView= LayoutInflater.from(parent.getContext()).inflate(R.layout.account_items,parent,false);
+            holder = new ViewHolder();
+            holder.tvTitle = convertView.findViewById(R.id.tvTitle);
+            holder.tvNumber = convertView.findViewById(R.id.tvNumber);
+            holder.tvBalance = convertView.findViewById(R.id.tvBalance);
+            convertView.setTag(holder);
+        } else holder= (ViewHolder) convertView.getTag();
 
         holder.tvNumber.setText(accountBalance.accountNumber);
         holder.tvTitle.setText(accountBalance.title);
         holder.tvBalance.setText(String.format("$ %.2f",accountBalance.balance));
+
+        return  convertView;
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent)
+    {
+        ViewHolder holder;
+        AccountBalance accountBalance=list.get(position);
+        if(convertView==null) {
+            convertView= LayoutInflater.from(parent.getContext()).inflate(R.layout.account_items,parent,false);
+            holder = new ViewHolder();
+            holder.tvTitle = convertView.findViewById(R.id.tvTitle);
+            holder.tvNumber = convertView.findViewById(R.id.tvNumber);
+            holder.tvBalance = convertView.findViewById(R.id.tvBalance);
+            convertView.setTag(holder);
+        } else holder= (ViewHolder) convertView.getTag();
+
+        holder.tvNumber.setText(accountBalance.accountNumber);
+        holder.tvTitle.setText(accountBalance.title);
+        holder.tvBalance.setText(String.format("$ %.2f",accountBalance.balance));
+
         return  convertView;
     }
 }

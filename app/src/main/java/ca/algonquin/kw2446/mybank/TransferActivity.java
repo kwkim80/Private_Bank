@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +19,9 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import ca.algonquin.kw2446.mybank.databinding.ActivityDepositBinding;
+import ca.algonquin.kw2446.mybank.databinding.ActivityTransferBinding;
+import ca.algonquin.kw2446.mybank.model.AccountBalance;
 import ca.algonquin.kw2446.mybank.model.Money;
 import ca.algonquin.kw2446.mybank.persistence.BankRepository;
 import ca.algonquin.kw2446.mybank.util.AppUtil;
@@ -25,47 +29,36 @@ import ca.algonquin.kw2446.mybank.util.PreferenceManager;
 
 public class TransferActivity extends AppCompatActivity {
 
-    EditText etAmount, etMemo, etOpponent;
+
     BankRepository bankRepository;
-    Button btnTransfer, btnCancel;
+    private AccountBalance accountBalance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transfer);
+        //setContentView(R.layout.activity_transfer);
+        ActivityTransferBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_transfer);
 
         ActionBar actionBar=getSupportActionBar();
-//        //actionBar.setIcon(R.drawable.logo);
-//        actionBar.setTitle(" Vocabulary");
-//        actionBar.setDisplayShowHomeEnabled(true);
-//        actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        accountBalance= (AccountBalance) getIntent().getSerializableExtra("account");
         bankRepository=new BankRepository(this);
 
-        etAmount=findViewById(R.id.etAmount);
-        etMemo=findViewById(R.id.etMemo);
-        etOpponent=findViewById(R.id.etOppopnent);
-        btnTransfer =findViewById(R.id.btnTransfer);
-        btnCancel=findViewById(R.id.btnCancel);
-
-        btnTransfer.setOnClickListener((v -> {
-            double amount=Double.parseDouble(etAmount.getText().toString().trim());
-            String memo=etMemo.getText().toString().trim();
-            int accountId=1;
+        binding.tvAccount.setText(accountBalance.title);
+         binding.btnTransfer.setOnClickListener((v -> {
+            double amount=Double.parseDouble(binding.etAmount.getText().toString().trim());
+            String memo=binding.etMemo.getText().toString().trim();
+            String opponent=binding.etOppopnent.getText().toString().trim();
 
             if(amount<=0 ||memo.isEmpty()){
                 Toast.makeText(TransferActivity.this, "Please fill required fileds", Toast.LENGTH_SHORT).show();
             }else{
-                Money transfer=new Money(accountId,"Transfer", amount*-1,true,memo, AppUtil.getCurrentDateTime());
+                Money transfer=new Money(accountBalance.id,opponent, amount*-1,true,memo, AppUtil.getCurrentDateTime());
                 checkPwd(transfer);
             }
         }));
 
-        btnCancel.setOnClickListener(v->{
-            Intent intent=new Intent();
-            setResult(RESULT_CANCELED,intent);
-            this.finish();
-        });
+        binding.btnCancel.setOnClickListener(v->{ setResult(RESULT_CANCELED,new Intent());this.finish(); });
     }
 
     @Override
@@ -101,6 +94,7 @@ public class TransferActivity extends AppCompatActivity {
                                     bankRepository.insertMoney(transfer);
                                     Intent intent=new Intent(TransferActivity.this, CompleteActivity.class);
                                     intent.putExtra("money",transfer);
+                                    intent.putExtra("account",accountBalance);
                                     startActivity(intent);
                                 }else{
                                     Toast.makeText(TransferActivity.this, "You password is not mached", Toast.LENGTH_SHORT).show();
