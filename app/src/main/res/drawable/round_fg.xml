@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-</selector>
-=======
 <?xml version="1.0" encoding="UTF-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:innerRadiusRatio="2"
@@ -16,4 +10,4 @@
         android:endColor="@color/white"
         />
 </shape>
->>>>>>> d8b4a51c6ca011c36c06655705dc46e2b67b053e
+

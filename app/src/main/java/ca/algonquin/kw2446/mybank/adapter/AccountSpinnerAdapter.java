@@ -1,9 +1,8 @@
 package ca.algonquin.kw2446.mybank.adapter;
 
-<<<<<<< HEAD
-public class AccountSpinnerAdapter {
-}
-=======
+
+
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,4 +72,3 @@ public class AccountSpinnerAdapter extends ArrayAdapter<AccountBalance> {
     }
 }
 
->>>>>>> d8b4a51c6ca011c36c06655705dc46e2b67b053e
