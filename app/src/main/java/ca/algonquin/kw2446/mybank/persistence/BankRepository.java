@@ -44,7 +44,7 @@ public class BankRepository {
 
     public LiveData<Double> getBalance(){ return db.getMoneyDao().getBalance(); }
 
-
+    public Double getBalanceValue(){ return db.getMoneyDao().getBalanceValue(); }
 
     public void insertAccount(Account... accounts){
         new AsyncTask<Void, Void, Void>() {

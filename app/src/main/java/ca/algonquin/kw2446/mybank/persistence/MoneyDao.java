@@ -40,5 +40,6 @@ public interface MoneyDao {
     @Query("SELECT ifnull(sum(amount),0)  FROM Money")
     LiveData<Double> getBalance();
 
-
+    @Query("SELECT ifnull(sum(amount),0)  FROM Money")
+    Double getBalanceValue();
 }
